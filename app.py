@@ -11,18 +11,16 @@ load_dotenv()
 
 app = Flask(__name__)
 
-# LINE Messaging APIの設定を環境変数から取得
 LINE_CHANNEL_ACCESS_TOKEN = os.getenv('LINE_CHANNEL_ACCESS_TOKEN')
 LINE_CHANNEL_SECRET = os.getenv('LINE_CHANNEL_SECRET')
 
-# 必要な環境変数が設定されているか確認
 if not LINE_CHANNEL_ACCESS_TOKEN or not LINE_CHANNEL_SECRET:
     raise ValueError("LINE_CHANNEL_ACCESS_TOKENまたはLINE_CHANNEL_SECRETが設定されていません。")
 
 line_bot_api = LineBotApi(LINE_CHANNEL_ACCESS_TOKEN)
 handler = WebhookHandler(LINE_CHANNEL_SECRET)
 
-# ハードコーディングされた電車の時刻データ
+# ここにバスや電車の時刻をhh:mm形式でハードコーディング
 train_schedule = [
     "10:00", "10:15", "10:30", "10:45", "11:00", "11:15", "11:30", "11:45", "12:00"
 ]
@@ -53,9 +51,8 @@ def handle_message(event):
     # デバッグログ
     print(f"Received message: {event.message.text}")
 
-    # メッセージが「東京駅から新橋まで」の場合のみ処理
-    if event.message.text == "東京駅から新橋まで":
-        now = datetime.now()
+    # 自動応答に反応させたいメッセージをここで指定
+    if event.message.text == "バス":
         now = datetime.now(ZoneInfo("Asia/Tokyo"))
         one_hour_later = now + timedelta(hours=1)
 
@@ -67,9 +64,9 @@ def handle_message(event):
 
         # メッセージ作成
         if upcoming_trains:
-            response_message = "次の電車の時刻:\n" + "\n".join(upcoming_trains)
+            response_message = "次のバスの時刻:\n" + "\n".join(upcoming_trains)
         else:
-            response_message = "次の1時間以内に電車はありません。"
+            response_message = "次の1時間以内にバスはありません。"
     else:
         response_message = "無効なメッセージです"
 
