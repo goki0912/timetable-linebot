@@ -5,10 +5,6 @@ from linebot.models import MessageEvent, TextMessage, TextSendMessage
 from datetime import datetime, timedelta
 from dotenv import load_dotenv
 import os
-import base64
-import hashlib
-import hmac
-
 # 環境変数のロード
 load_dotenv()
 
