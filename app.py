@@ -3,6 +3,7 @@ from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
 from linebot.models import MessageEvent, TextMessage, TextSendMessage
 from datetime import datetime, timedelta
+from zoneinfo import ZoneInfo
 from dotenv import load_dotenv
 import os
 # 環境変数のロード
@@ -55,6 +56,7 @@ def handle_message(event):
     # メッセージが「東京駅から新橋まで」の場合のみ処理
     if event.message.text == "東京駅から新橋まで":
         now = datetime.now()
+        now = datetime.now(ZoneInfo("Asia/Tokyo"))
         one_hour_later = now + timedelta(hours=1)
 
         # 現在時刻と比較して、1時間以内の時刻を取得
@@ -69,7 +71,7 @@ def handle_message(event):
         else:
             response_message = "次の1時間以内に電車はありません。"
     else:
-        response_message = f"受信したメッセージ: {event.message.text}"
+        response_message = "無効なメッセージです"
 
     # LINEに返信
     try:
