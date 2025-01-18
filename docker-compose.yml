@@ -1,0 +1,13 @@
+services:
+  app:
+    build:
+      context: .  # Dockerfileのあるディレクトリ
+    ports:
+      - "8000:8000"  # Flaskアプリ用のポート
+    env_file:
+      - .env
+    volumes:
+      - .:/app  # ローカルファイルをコンテナにマウント
+    working_dir: /app  # 作業ディレクトリを指定
+    command: >
+      flask run --host=0.0.0.0 --port=8000 --debug
