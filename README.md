@@ -1,1 +1,3 @@
 # timetable-linebot
+
+乗換案内アプリがうまく使えない祖母のために作った最低限の時刻表LINEbot
