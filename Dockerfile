@@ -11,5 +11,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 # ソースコードをコピー
 COPY . .
 
-# 開発用と本番用のコマンドを切り替え可能にする
-CMD ["bash"]
+# 環境変数設定
+ENV PORT=8080
+
+# Flaskアプリの起動コマンド
+CMD ["sh", "-c", "flask run --host=0.0.0.0 --port=$PORT"]

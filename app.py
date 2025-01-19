@@ -81,5 +81,6 @@ def handle_message(event):
         print(f"Error sending reply: {e}")
 
 if __name__ == "__main__":
+    port = int(os.getenv("PORT", 8080))
     # Flaskアプリの起動
-    app.run(host="0.0.0.0", port=8000, debug=True)
+    app.run(host="0.0.0.0", port=port)
