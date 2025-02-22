@@ -7,3 +7,5 @@ LINE公式アカウントを作成してwebhook urlに`https://<デプロイurl>
 実際はapp.pyの時刻表や駅、バス停名を任意のものに変更して運用しています。
 
 デプロイにはfly.ioを利用中
+
+デプロイコマンド `fly deploy -a timetable-linebot`
